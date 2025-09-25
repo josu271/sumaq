@@ -1,0 +1,74 @@
+// src/styles/login.scss
+
+$primary-color: #8b4513;
+$accent-color: #d2691e;
+$bg-color: #f4e1c1;
+
+.login-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, $primary-color, $accent-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.login-card {
+  background: #fff;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: left;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  h2 {
+    color: $primary-color;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .form-label {
+    font-weight: bold;
+    color: $primary-color;
+  }
+
+  .form-control {
+    border: 2px solid lighten($primary-color, 20%);
+    border-radius: 10px;
+    padding: 0.8rem;
+
+    &:focus {
+      border-color: $accent-color;
+      box-shadow: 0 0 5px rgba($accent-color, 0.6);
+    }
+  }
+
+  .btn-primary {
+    background: $primary-color;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+
+    &:hover {
+      background: darken($primary-color, 10%);
+    }
+  }
+
+  .small-text {
+    color: $accent-color;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

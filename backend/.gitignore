@@ -1,0 +1,31 @@
+# Entornos virtuales
+venv/
+env/
+backend/venv/
+
+# Archivos Python innecesarios
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Variables de entorno
+*.env
+
+# Archivos temporales
+*.log
+*.sqlite3
+*.db
+
+# Carpetas de build/dist
+build/
+dist/
+*.egg-info/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Node / React
+node_modules/
+dist/
