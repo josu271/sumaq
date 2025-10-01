@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'app',
 ]
 
 MIDDLEWARE = [
@@ -74,8 +76,15 @@ WSGI_APPLICATION = 'backend_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',  # Motor de MySQL
+        'NAME': 'artesanias',          # Nombre de tu base de datos
+        'USER': 'josu',                        # Usuario MySQL (normalmente 'root')
+        'PASSWORD': 'sulla123',                        # Contraseña de MySQL (si tienes)
+        'HOST': '127.0.0.1',                   # Localhost
+        'PORT': '3306',                        # Puerto por defecto de MySQL
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
     }
 }
 
