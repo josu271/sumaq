@@ -27,3 +27,16 @@ class Artesanos(models.Model):
 
     def __str__(self):
         return f"{self.ArtesanosNombres} {self.ArtesanosApellidos}"
+    
+class Eventos(models.Model):
+    idEventos = models.AutoField(primary_key=True)
+    EventosNombre = models.CharField(max_length=45)
+    EventosFecha = models.DateField()
+    EventosUbicacion = models.CharField(max_length=45)
+    EventosDescripcion = models.CharField(max_length=45)
+
+    class Meta:
+        db_table = "eventos"
+
+    def __str__(self):
+        return f"{self.EventosNombre} - {self.EventosFecha}"

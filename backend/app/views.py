@@ -8,7 +8,11 @@ from .serializers import ProductosSerializer
 from .models import Artesanos
 from .serializers import ArtesanosSerializer
 from rest_framework.decorators import api_view
-
+from .models import Eventos
+from .serializers import EventosSerializer
+from rest_framework import viewsets
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 
 # ==========================
@@ -103,4 +107,16 @@ def cambiar_contrasena(request):
     artesano.ArtesanosContra = nueva  # ⚠️ En producción hashear
     artesano.save()
     return Response({"success": "Contraseña actualizada"})
+# 🔹 CRUD completo de Eventos
+class EventosViewSet(viewsets.ModelViewSet):
+    queryset = Eventos.objects.all().order_by('EventosFecha')
+    serializer_class = EventosSerializer
 
+# 🔹 Próximos eventos
+@api_view(['GET'])
+def proximos_eventos(request):
+    from django.utils import timezone
+    hoy = timezone.now().date()
+    eventos = Eventos.objects.filter(EventosFecha__gte=hoy).order_by('EventosFecha')[:10]
+    serializer = EventosSerializer(eventos, many=True)
+    return Response(serializer.data)

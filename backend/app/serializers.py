@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Productos
 from rest_framework import serializers
 from .models import Artesanos
+from .models import Eventos
 
 class ProductosSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,3 +19,7 @@ class ArtesanosSerializer(serializers.ModelSerializer):
             "ArtesanosCorreo",
             "ArtesanosAsociacion",
         ]
+class EventosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Eventos
+        fields = "__all__"

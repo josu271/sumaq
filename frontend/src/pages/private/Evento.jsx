@@ -1,89 +1,82 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles/pages/private/eventos.scss";
 
 const Eventos = () => {
+  const [eventos, setEventos] = useState([]);
+  const [form, setForm] = useState({
+    EventosNombre: "",
+    EventosFecha: "",
+    EventosUbicacion: "",
+    EventosDescripcion: "",
+  });
+
+  // 🔹 Cargar eventos
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/api/eventos/")
+      .then(res => res.json())
+      .then(data => setEventos(data))
+      .catch(err => console.error(err));
+  }, []);
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("http://127.0.0.1:8000/api/eventos/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error("Error agregando evento");
+      const nuevoEvento = await res.json();
+      setEventos([...eventos, nuevoEvento]);
+      setForm({ EventosNombre: "", EventosFecha: "", EventosUbicacion: "", EventosDescripcion: "" });
+    } catch (err) {
+      console.error(err);
+      alert("Error agregando evento");
+    }
+  };
+
   return (
     <div className="eventos-page">
       <h1>📅 Gestión de Eventos</h1>
 
-      {/* 📌 Filtros */}
-      <div className="filtros">
-        <select>
-          <option value="">Filtrar por mes</option>
-          <option value="septiembre">Septiembre</option>
-          <option value="octubre">Octubre</option>
-          <option value="noviembre">Noviembre</option>
-        </select>
-
-        <select>
-          <option value="">Categoría</option>
-          <option value="feria">Feria Artesanal</option>
-          <option value="exposicion">Exposición</option>
-          <option value="taller">Taller</option>
-        </select>
-
-        <button className="btn-filtrar">Aplicar Filtros</button>
-      </div>
-
       <div className="layout-grid">
-        {/* 🗓️ Calendario grande (simulado) */}
-        <div className="calendar-section">
-          <h2>Calendario de Eventos</h2>
-          <div className="calendar">
-            {[...Array(30)].map((_, i) => (
-              <div className={`day ${i === 4 || i === 14 || i === 20 ? "has-event" : ""}`} key={i}>
-                <span className="date">{i + 1}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* ➕ Agregar Evento */}
+        {/* ➕ Formulario */}
         <div className="add-event-section">
           <h2>Agregar Nuevo Evento</h2>
-          <form>
+          <form onSubmit={handleSubmit}>
             <label>Nombre del evento</label>
-            <input type="text" placeholder="Ej: Feria Artesanal de Primavera" />
+            <input type="text" name="EventosNombre" value={form.EventosNombre} onChange={handleChange} required />
 
             <label>Fecha</label>
-            <input type="date" />
+            <input type="date" name="EventosFecha" value={form.EventosFecha} onChange={handleChange} required />
 
-            <label>Categoría</label>
-            <select>
-              <option>Feria Artesanal</option>
-              <option>Exposición</option>
-              <option>Taller</option>
-            </select>
+            <label>Ubicación</label>
+            <input type="text" name="EventosUbicacion" value={form.EventosUbicacion} onChange={handleChange} required />
 
             <label>Descripción</label>
-            <textarea placeholder="Detalles del evento..."></textarea>
+            <textarea name="EventosDescripcion" value={form.EventosDescripcion} onChange={handleChange} required />
 
-            <button type="submit" className="btn-agregar">
-              ➕ Agregar Evento
-            </button>
+            <button type="submit" className="btn-agregar">➕ Agregar Evento</button>
           </form>
         </div>
-      </div>
 
-      {/* 📆 Próximos eventos */}
-      <section className="lista-eventos">
-        <h2>📆 Próximos Eventos</h2>
-        <div className="event-card">
-          <h3>Feria Artesanal Huancayo</h3>
-          <p>📍 Plaza Constitución - 28 Sep 2025</p>
-          <p>🧵 Evento tradicional de exposición de cerámica y textiles Wanka.</p>
+        {/* 📆 Próximos eventos */}
+        <div className="lista-eventos">
+          <h2>📆 Próximos Eventos</h2>
+          {eventos.map(evento => (
+            <div key={evento.idEventos} className="event-card">
+              <h3>{evento.EventosNombre}</h3>
+              <p>📍 {evento.EventosUbicacion} - {new Date(evento.EventosFecha).toLocaleDateString()}</p>
+              <p>🧵 {evento.EventosDescripcion}</p>
+            </div>
+          ))}
         </div>
-        <div className="event-card">
-          <h3>Expo Andina</h3>
-          <p>📍 Centro Cultural - 5 Oct 2025</p>
-          <p>🏺 Presentación de innovación y técnicas modernas de artesanía.</p>
-        </div>
-        <div className="event-card">
-          <h3>Taller Textil Ancestral</h3>
-          <p>📍 Museo Regional - 12 Oct 2025</p>
-          <p>🪶 Taller gratuito sobre tejidos tradicionales con IA aplicada.</p>
-        </div>
-      </section>
+      </div>
     </div>
   );
 };
