@@ -2,8 +2,16 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.db import connection
+from rest_framework import viewsets
+from .models import Productos
+from .serializers import ProductosSerializer
 
-@csrf_exempt  # ⚠️ solo para pruebas, luego mejor usar tokens o JWT
+
+
+# ==========================
+# 🔐 LOGIN ARTESANOS
+# ==========================
+@csrf_exempt  # ⚠️ solo para pruebas
 def login_artesano(request):
     if request.method == "POST":
         data = json.loads(request.body)
@@ -33,3 +41,12 @@ def login_artesano(request):
             return JsonResponse({"success": False, "message": "Credenciales inválidas"}, status=401)
 
     return JsonResponse({"error": "Método no permitido"}, status=405)
+
+
+# ==========================
+# 📦 CRUD PRODUCTOS
+# ==========================
+class ProductoViewSet(viewsets.ModelViewSet):
+    queryset = Productos.objects.all()
+    serializer_class = ProductosSerializer  # <- aquí
+
