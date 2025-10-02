@@ -32,12 +32,13 @@ INSERT INTO productos VALUES
 -- Tabla: artesanos
 DROP TABLE IF EXISTS artesanos;
 CREATE TABLE artesanos (
-  DNIArtesanos INT(11) NOT NULL,
-  ArtesanosNombres VARCHAR(45) NOT NULL,
-  ArtesanosApellidos VARCHAR(45) NOT NULL,
+  DNIArtesanos INT(15) NOT NULL,
+  ArtesanosNombres VARCHAR(255) NOT NULL,
+  ArtesanosApellidos VARCHAR(255) NOT NULL,
   ArtesanosTelefono INT(11) NOT NULL,
-  ArtesanosCorreo VARCHAR(45) NOT NULL,
-  ArtesanosAsociacion VARCHAR(45) NOT NULL,
+  ArtesanosCorreo VARCHAR(255) NOT NULL,
+  ArtesanosAsociacion VARCHAR(255) NOT NULL,
+  ArtesanosContra VARCHAR(255) NOT NULL,
   Reporte_idReporte INT(11) NOT NULL,
   PRIMARY KEY (DNIArtesanos),
   KEY fk_Artesanos_Reporte1_idx (Reporte_idReporte),
