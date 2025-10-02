@@ -13,3 +13,17 @@ class Productos(models.Model):
 
     def __str__(self):
         return self.ProductosNombre
+class Artesanos(models.Model):
+    DNIArtesanos = models.CharField(max_length=20, primary_key=True)
+    ArtesanosNombres = models.CharField(max_length=45)
+    ArtesanosApellidos = models.CharField(max_length=45)
+    ArtesanosTelefono = models.CharField(max_length=20, blank=True, null=True)
+    ArtesanosCorreo = models.EmailField(max_length=100)
+    ArtesanosAsociacion = models.CharField(max_length=100, blank=True, null=True)
+    ArtesanosContra = models.CharField(max_length=128)
+
+    class Meta:
+        db_table = "artesanos"
+
+    def __str__(self):
+        return f"{self.ArtesanosNombres} {self.ArtesanosApellidos}"
