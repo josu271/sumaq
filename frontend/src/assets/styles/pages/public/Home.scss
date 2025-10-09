@@ -1,0 +1,26 @@
+@import "../../variables.scss";
+
+.home-hero {
+  background: url("../../../images/public/artesanias-bg.jpg") center/cover no-repeat;
+  color: white;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  h1 {
+    font-size: 3rem;
+    font-weight: bold;
+  }
+
+  .btn-sumaq {
+    background-color: $sumaq-primary;
+    color: white;
+    border: none;
+
+    &:hover {
+      background-color: darken($sumaq-primary, 10%);
+    }
+  }
+}

@@ -1,0 +1,16 @@
+@import "../../variables.scss";
+
+.login-container {
+  .login-card {
+    width: 25rem;
+  }
+
+  .btn-sumaq {
+    background-color: $sumaq-primary;
+    border: none;
+
+    &:hover {
+      background-color: darken($sumaq-primary, 10%);
+    }
+  }
+}

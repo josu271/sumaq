@@ -1,33 +1,22 @@
-import { Routes, Route } from "react-router-dom";
-import PublicLayout from "../layouts/PublicLayout";
-import PrivateLayout from "../layouts/PrivateLayout";
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "../components/public/Navbar";
+import Footer from "../components/public/Footer";
 import Home from "../pages/public/Home";
+import About from "../pages/public/About";
 import Login from "../pages/public/Login";
 
-import Dashboard from "../pages/private/Dashboard";
-import Inventario from "../pages/private/Inventario";
-import Predicciones from "../pages/private/Predicciones";
-import Evento from "../pages/private/Evento";
-import Perfil from "../pages/private/Perfil";
-
-export default function AppRoutes() {
+function AppRouter() {
   return (
-    <Routes>
-      {/* 🌐 Público */}
-      <Route element={<PublicLayout />}>
+    <Router>
+      <Navbar />
+      <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
-      </Route>
-
-      {/* 🔒 Privado */}
-      <Route element={<PrivateLayout />}>
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/inventario" element={<Inventario />} />
-        <Route path="/predicciones" element={<Predicciones />} />
-        <Route path="/evento" element={<Evento />} />
-        <Route path="/perfil" element={<Perfil />} />
-      </Route>
-    </Routes>
+      </Routes>
+      <Footer />
+    </Router>
   );
 }
+
+export default AppRouter;
