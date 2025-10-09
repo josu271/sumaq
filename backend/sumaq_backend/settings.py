@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'corsheaders',
+    "corsheaders",
     'app',
     
     'artesanos',
@@ -59,7 +59,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'backend_project.urls'
+ROOT_URLCONF = 'sumaq_backend.urls'
 
 TEMPLATES = [
     {
@@ -76,7 +76,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'backend_project.wsgi.application'
+WSGI_APPLICATION = 'sumaq_backend.wsgi.application'
 
 
 # Database
@@ -86,7 +86,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Motor de MySQL
         'NAME': 'sumaq',          # Nombre de tu base de datos
-        'USER': 'josu',                        # Usuario MySQL (normalmente 'root')
+        'USER': 'root',                        # Usuario MySQL (normalmente 'root')
         'PASSWORD': 'sulla123',                        # Contraseña de MySQL (si tienes)
         'HOST': '127.0.0.1',                   # Localhost
         'PORT': '3306',                        # Puerto por defecto de MySQL
@@ -115,8 +115,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # Vite (React)
-    "http://127.0.0.1:5173",
+    "http://localhost:3000",  # Vite (React)
+    "http://127.0.0.1:3000",
 ]
 
 

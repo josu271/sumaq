@@ -3,7 +3,15 @@ from rest_framework.response import Response
 from predicciones.ml.predictor import predict_status
 from productos.models import Producto
 from ventas.models import Venta
+from artesanos.models import Artesano   # 👈 importa el modelo correcto
 from django.db.models import Sum
+
+
+@api_view(['GET'])
+def prueba_conexion(request):
+    """Verifica conexión entre frontend y backend."""
+    return Response({"mensaje": "Backend conectado correctamente 😎"})
+
 
 @api_view(['GET'])
 def predecir_producto(request, id_producto):
@@ -22,3 +30,32 @@ def predecir_producto(request, id_producto):
         'ventas_totales': ventas,
         'prediccion': resultado
     })
+
+
+@api_view(['POST'])
+def login_artesano(request):
+    """Inicia sesión verificando los datos con la tabla 'artesanos'."""
+    correo = request.data.get("correo")
+    contrasena = request.data.get("contrasena")
+
+    try:
+        # Buscar artesano por correo
+        artesano = Artesano.objects.get(correo=correo)
+
+        # Verificar contraseña (simple por ahora, sin encriptar)
+        if artesano.contrasena == contrasena:
+            return Response({
+                "mensaje": "Inicio de sesión exitoso",
+                "artesano": {
+                    "id": artesano.idArtesano,
+                    "nombres": artesano.nombres,
+                    "apellidos": artesano.apellidos,
+                    "correo": artesano.correo,
+                    "asociacion": artesano.asociacion,
+                }
+            })
+        else:
+            return Response({"error": "Contraseña incorrecta"}, status=401)
+
+    except Artesano.DoesNotExist:
+        return Response({"error": "El correo no está registrado"}, status=404)
