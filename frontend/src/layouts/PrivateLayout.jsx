@@ -1,37 +1,28 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import "../styles/layouts/privateLayout.scss";
+import { useEffect } from "react";
+import Sidebar from "../components/private/Sidebar";
 
-export default function PrivateLayout() {
+import "../assets/styles/layouts/PrivateLayout.scss";
+
+const PrivateLayout = () => {
   const navigate = useNavigate();
+  const auth = localStorage.getItem("auth");
 
-  const handleLogout = () => {
-    // Aquí solo redirigimos sin backend
-    navigate("/login");
-  };
+  useEffect(() => {
+    if (!auth) navigate("/login");
+  }, [auth, navigate]);
 
   return (
     <div className="private-layout">
-      {/* 🧭 Sidebar */}
-      <aside className="sidebar">
-        <h2 className="logo">Panel ML</h2>
-        <nav>
-          <ul>
-            <li onClick={() => navigate("/dashboard")}>📊 Dashboard</li>
-            <li onClick={() => navigate("/inventario")}>📦 Inventario</li>
-            <li onClick={() => navigate("/predicciones")}>🤖 Predicciones</li>
-            <li onClick={() => navigate("/evento")}>📅 Evento</li>
-            <li onClick={() => navigate("/perfil")}>👤 Perfil</li>
-          </ul>
-        </nav>
-        <button className="logout-btn" onClick={handleLogout}>
-          🚪 Cerrar sesión
-        </button>
-      </aside>
+      <div className="layout-body">
+        <Sidebar />
+        <main className="layout-content">
+          <Outlet /> {/* Aquí se renderizan Dashboard, Productos, Eventos */}
+        </main>
+      </div>
 
-      {/* 📍 Contenido dinámico */}
-      <main className="content">
-        <Outlet />
-      </main>
     </div>
   );
-}
+};
+
+export default PrivateLayout;

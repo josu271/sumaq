@@ -1,0 +1,119 @@
+.sidebar {
+  width: 250px;
+  min-height: 100vh;
+  background-color: #2e3a59;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: width 0.3s;
+
+  &.collapsed {
+    width: 80px;
+
+    h3, .sidebar-nav a {
+      text-align: center;
+    }
+
+    .sidebar-nav a span {
+      display: none;
+    }
+
+    .sidebar-bottom {
+      button {
+        font-size: 0;
+        padding: 10px;
+      }
+    }
+  }
+
+  .sidebar-top {
+    padding: 2rem 1rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    h3 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #ffd166;
+    }
+
+    button {
+      margin-top: 10px;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+  }
+
+  /* enlaces al inicio */
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    flex-grow: 1; // ocupa todo el espacio disponible
+
+    a {
+      padding: 1rem 2rem;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      &.active {
+        background-color: #ffd166;
+        color: #2e3a59;
+        border-radius: 5px;
+      }
+
+      &:hover {
+        background-color: rgba(255, 209, 102, 0.2);
+        border-radius: 5px;
+      }
+    }
+  }
+
+  /* botón de logout siempre abajo */
+  .sidebar-bottom {
+    padding: 1rem;
+    text-align: center;
+
+    .logout-btn {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: linear-gradient(135deg, #ff4b5c, #ff2d3c);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s;
+
+      &:hover {
+        background: linear-gradient(135deg, #ff2d3c, #ff1a25);
+        transform: translateY(-2px);
+        box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+      }
+    }
+  }
+}
+
+/* Responsive: colapsable automáticamente en pantallas pequeñas */
+@media screen and (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    z-index: 1000;
+    left: -250px;
+
+    &.collapsed {
+      left: 0;
+    }
+  }
+}

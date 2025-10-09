@@ -1,14 +1,18 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "../components/public/Navbar";
+import NavbarPublic from "../components/public/Navbar";
+import FooterPublic from "../components/public/Footer";
+import "../assets/styles/layouts/PublicLayout.scss";
 
-export default function PublicLayout() {
+const PublicLayout = () => {
   return (
-    <div>
-      <Navbar />
-
-      <main>
-        <Outlet />
+    <>
+      <NavbarPublic />
+      <main className="public-layout">
+        <Outlet /> {/* Aquí se renderizan Home, About, Login */}
       </main>
-    </div>
+      <FooterPublic />
+    </>
   );
-}
+};
+
+export default PublicLayout;
