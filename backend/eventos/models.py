@@ -9,6 +9,3 @@ class Evento(models.Model):
 
     def __str__(self):
         return f"{self.nombre} - {self.fecha}"
-
-    class Meta:
-        db_table = 'eventos_evento'  # Usa la tabla existente

@@ -45,15 +45,15 @@ def login_artesano(request):
         # Verificar contraseña (simple por ahora, sin encriptar)
         if artesano.contrasena == contrasena:
             return Response({
-                "mensaje": "Inicio de sesión exitoso",
-                "artesano": {
-                    "id": artesano.idArtesano,
-                    "nombres": artesano.nombres,
-                    "apellidos": artesano.apellidos,
-                    "correo": artesano.correo,
-                    "asociacion": artesano.asociacion,
-                }
-            })
+        "mensaje": "Inicio de sesión exitoso",
+        "artesano": {
+            "idArtesano": artesano.idArtesano,
+            "nombres": artesano.nombres,
+            "apellidos": artesano.apellidos,
+            "correo": artesano.correo,
+            "asociacion": artesano.asociacion,
+        }
+    })
         else:
             return Response({"error": "Contraseña incorrecta"}, status=401)
 

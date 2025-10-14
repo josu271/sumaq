@@ -1,0 +1,97 @@
+.perfil-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: "Poppins", sans-serif;
+
+  h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 25px;
+  }
+
+  .perfil-card {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .perfil-info {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
+    gap: 10px;
+
+    label {
+      font-weight: 600;
+      color: #444;
+    }
+
+    p {
+      margin: 0;
+      color: #555;
+    }
+
+    input {
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      &:focus {
+        outline: none;
+        border-color: #0088cc;
+        box-shadow: 0 0 4px rgba(0, 136, 204, 0.3);
+      }
+    }
+  }
+
+  .perfil-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-editar {
+      background-color: #007bff;
+      color: white;
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+
+    .btn-guardar {
+      background-color: #28a745;
+      color: white;
+      &:hover {
+        background-color: #1e7e34;
+      }
+    }
+
+    .btn-cancelar {
+      background-color: #dc3545;
+      color: white;
+      &:hover {
+        background-color: #b21f2d;
+      }
+    }
+  }
+
+  .mensaje {
+    text-align: center;
+    margin-top: 15px;
+    font-weight: 500;
+    color: #007bff;
+  }
+}

@@ -15,7 +15,8 @@ import Perfil from "../pages/private/Perfil";
 import Predicciones from "../pages/private/Predicciones";
 
 const AppRouter = () => {
-  const isAuthenticated = localStorage.getItem("auth") === "true";
+  // ✅ Detecta si existe cualquier sesión guardada
+  const isAuthenticated = !!localStorage.getItem("auth");
 
   return (
     <Router>
@@ -44,7 +45,7 @@ const AppRouter = () => {
           )}
         </Route>
 
-        {/* Fallback: redirige según autenticación */}
+        {/* Fallback */}
         <Route
           path="*"
           element={<Navigate to={isAuthenticated ? "/private/dashboard" : "/"} replace />}

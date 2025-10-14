@@ -1,12 +1,19 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import "../../assets/styles/pages/public/Login.scss";
+import { useState, useEffect } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
   const [correo, setCorreo] = useState("");
   const [contrasena, setContrasena] = useState("");
   const [error, setError] = useState("");
+
+  useEffect(() => {
+  const isAuthenticated = !!localStorage.getItem("auth");
+  if (isAuthenticated && !document.referrer.includes("/login")) {
+    navigate("/private/dashboard");
+  }
+}, [navigate]);
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -19,6 +26,7 @@ const Login = () => {
       });
 
       const data = await response.json();
+      console.log("🔹 Respuesta del servidor:", data);
 
       if (response.ok) {
         localStorage.setItem("auth", JSON.stringify(data.artesano));
@@ -26,7 +34,7 @@ const Login = () => {
       } else {
         setError(data.error || "Error al iniciar sesión");
       }
-    } catch{
+    } catch  {
       setError("Error de conexión con el servidor");
     }
   };
