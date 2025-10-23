@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const API_URL = "http://127.0.0.1:8000";
+// src/services/Api.js
+export const API_URL = "https://www.neoproyect.com/api";
+
 
 const api = axios.create({
   baseURL: API_URL,
@@ -9,7 +11,7 @@ const api = axios.create({
 
 export async function probarConexion() {
   try {
-    const res = await api.get("/api/prueba/");
+    const res = await api.get("/prueba/");
     console.log("✅ Conectado con backend:", res.data);
     return res.data;
   } catch (error) {

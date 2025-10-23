@@ -15,7 +15,7 @@ const Login = () => {
     setError("");
     try {
       const res = await axios.post(
-        "http://127.0.0.1:8000/api/predicciones/login_artesano/",
+        "https://www.neoproyect.com/api/predicciones/login_artesano/",
         { correo, contrasena }
       );
 

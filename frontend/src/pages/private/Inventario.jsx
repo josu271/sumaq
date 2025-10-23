@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../../assets/styles/pages/private/Productos.scss";
 
-const API_URL = "http://127.0.0.1:8000/api";
+const API_URL = "https://www.neoproyect.com/api";
 
 const Inventario = () => {
   const artesano = JSON.parse(localStorage.getItem("auth"));

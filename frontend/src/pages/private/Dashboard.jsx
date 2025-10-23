@@ -5,7 +5,7 @@ const Dashboard = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/artesanos/dashboard/")
+    fetch("https://www.neoproyect.com/api/artesanos/dashboard/")
       .then((res) => res.json())
       .then((data) => setData(data))
       .catch((err) => console.error(err));

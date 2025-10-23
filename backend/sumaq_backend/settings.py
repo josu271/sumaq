@@ -23,9 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-w%foby=10*@752dzrh477d4k4s+^l!c+ku=xp6j^qpxl04_xw#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -86,7 +85,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Motor de MySQL
         'NAME': 'sumaq',          # Nombre de tu base de datos
-        'USER': 'root',                        # Usuario MySQL (normalmente 'root')
+        'USER': 'josu',                        # Usuario MySQL (normalmente 'root')
         'PASSWORD': 'sulla123',                        # Contraseña de MySQL (si tienes)
         'HOST': '127.0.0.1',                   # Localhost
         'PORT': '3306',                        # Puerto por defecto de MySQL
@@ -117,7 +116,12 @@ AUTH_PASSWORD_VALIDATORS = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Vite (React)
     "http://127.0.0.1:3000",
+    "https://www.neoproyect.com",
 ]
+ALLOWED_HOSTS = ['www.neoproyect.com',
+                 'neoproyect.com', 
+                 '72.60.154.196']
+
 
 
 # Internationalization
@@ -141,3 +145,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
