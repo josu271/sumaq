@@ -1,3 +1,4 @@
+// frontend/src/routes/AppRouter.jsx (o donde tengas AppRouter)
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import PublicLayout from "../layouts/PublicLayout";
 import PrivateLayout from "../layouts/PrivateLayout";
@@ -14,10 +15,9 @@ import Evento from "../pages/private/Evento";
 import Perfil from "../pages/private/Perfil";
 import Predicciones from "../pages/private/Predicciones";
 
-const AppRouter = () => {
-  // ✅ Detecta si existe cualquier sesión guardada
-  const isAuthenticated = !!localStorage.getItem("auth");
+import ProtectedRoute from "./ProtectedRoute";
 
+const AppRouter = () => {
   return (
     <Router>
       <Routes>
@@ -28,28 +28,21 @@ const AppRouter = () => {
           <Route path="/login" element={<Login />} />
         </Route>
 
-        {/* Rutas privadas */}
-        <Route
-          path="/private/*"
-          element={isAuthenticated ? <PrivateLayout /> : <Navigate to="/login" replace />}
-        >
-          {isAuthenticated && (
-            <>
-              <Route index element={<Dashboard />} />
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="inventario" element={<Inventario />} />
-              <Route path="eventos" element={<Evento />} />
-              <Route path="perfil" element={<Perfil />} />
-              <Route path="predicciones" element={<Predicciones />} />
-            </>
-          )}
+        {/* Rutas privadas: ProtectedRoute controla el acceso y renderiza Outlet (PrivateLayout) */}
+        <Route element={<ProtectedRoute />}>
+          {/* aquí PrivateLayout actúa como el layout y dentro de él se renderizan las rutas privadas */}
+          <Route path="/private" element={<PrivateLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="inventario" element={<Inventario />} />
+            <Route path="eventos" element={<Evento />} />
+            <Route path="perfil" element={<Perfil />} />
+            <Route path="predicciones" element={<Predicciones />} />
+          </Route>
         </Route>
 
         {/* Fallback */}
-        <Route
-          path="*"
-          element={<Navigate to={isAuthenticated ? "/private/dashboard" : "/"} replace />}
-        />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   );

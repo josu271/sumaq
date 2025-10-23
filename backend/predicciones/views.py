@@ -39,23 +39,19 @@ def login_artesano(request):
     contrasena = request.data.get("contrasena")
 
     try:
-        # Buscar artesano por correo
         artesano = Artesano.objects.get(correo=correo)
-
-        # Verificar contraseña (simple por ahora, sin encriptar)
         if artesano.contrasena == contrasena:
             return Response({
-        "mensaje": "Inicio de sesión exitoso",
-        "artesano": {
-            "idArtesano": artesano.idArtesano,
-            "nombres": artesano.nombres,
-            "apellidos": artesano.apellidos,
-            "correo": artesano.correo,
-            "asociacion": artesano.asociacion,
-        }
-    })
+                "mensaje": "Inicio de sesión exitoso",
+                "artesano": {
+                    "idArtesano": artesano.idArtesano,
+                    "nombres": artesano.nombres,
+                    "apellidos": artesano.apellidos,
+                    "correo": artesano.correo,
+                    "asociacion": artesano.asociacion,
+                }
+            })
         else:
             return Response({"error": "Contraseña incorrecta"}, status=401)
-
     except Artesano.DoesNotExist:
         return Response({"error": "El correo no está registrado"}, status=404)

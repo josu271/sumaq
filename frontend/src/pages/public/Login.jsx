@@ -1,66 +1,61 @@
+// frontend/src/pages/public/Login.jsx
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import axios from "axios";
 
 const Login = () => {
-  const navigate = useNavigate();
   const [correo, setCorreo] = useState("");
   const [contrasena, setContrasena] = useState("");
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-  const isAuthenticated = !!localStorage.getItem("auth");
-  if (isAuthenticated && !document.referrer.includes("/login")) {
-    navigate("/private/dashboard");
-  }
-}, [navigate]);
-
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/login/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ correo, contrasena }),
+      const res = await axios.post("http://127.0.0.1:8000/api/predicciones/login_artesano/", {
+        correo,
+        contrasena,
       });
 
-      const data = await response.json();
-      console.log("🔹 Respuesta del servidor:", data);
+      console.log("Respuesta login:", res.data);
 
-      if (response.ok) {
-        localStorage.setItem("auth", JSON.stringify(data.artesano));
-        navigate("/private/dashboard");
-      } else {
-        setError(data.error || "Error al iniciar sesión");
+      // Comprueba que venga el artesano
+      if (!res.data || !res.data.artesano) {
+        alert("Respuesta inesperada del servidor");
+        return;
       }
-    } catch  {
-      setError("Error de conexión con el servidor");
+
+      // Guarda la sesión en la misma clave que usa el router
+      localStorage.setItem("auth", JSON.stringify(res.data.artesano));
+
+      // Redirige al dashboard (replace evita volver atrás con el botón)
+      navigate("/private/dashboard", { replace: true });
+    } catch (err) {
+      console.error("Error login:", err);
+      // si axios devuelve respuesta con status, mostrar mensaje
+      if (err?.response?.data?.error) {
+        alert(err.response.data.error);
+      } else {
+        alert("Correo o contraseña incorrectos o error de red");
+      }
     }
   };
 
   return (
-    <div className="login-container">
-      <h2>Ingreso Artesanos</h2>
-      <form onSubmit={handleLogin}>
-        <input
-          type="email"
-          placeholder="Correo"
-          value={correo}
-          onChange={(e) => setCorreo(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={contrasena}
-          onChange={(e) => setContrasena(e.target.value)}
-          required
-        />
-        <button type="submit">Ingresar</button>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-      </form>
-    </div>
+    <form onSubmit={handleLogin}>
+      <input
+        type="email"
+        placeholder="Correo"
+        value={correo}
+        onChange={(e) => setCorreo(e.target.value)}
+      />
+      <input
+        type="password"
+        placeholder="Contraseña"
+        value={contrasena}
+        onChange={(e) => setContrasena(e.target.value)}
+      />
+      <button type="submit">Iniciar sesión</button>
+    </form>
   );
 };
 

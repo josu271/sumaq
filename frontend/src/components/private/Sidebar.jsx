@@ -1,6 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import "../../assets/styles/components/private/Sidebar.scss";
+import PropTypes from "prop-types";
+
 
 const Sidebar = ({ onLogout }) => {
   const [collapsed, setCollapsed] = useState(false);
@@ -23,10 +25,14 @@ const Sidebar = ({ onLogout }) => {
       </nav>
 
       <div className="sidebar-bottom">
-        <button className="logout-btn" onClick={onLogout}>Cerrar sesión</button>
+        <button className="logout-btn" onClick={onLogout}>Cerrar sesión</button>  
+
       </div>
     </aside>
   );
+};
+Sidebar.propTypes = {
+  onLogout: PropTypes.func.isRequired,
 };
 
 export default Sidebar;
