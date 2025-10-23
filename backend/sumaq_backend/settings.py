@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-w%foby=10*@752dzrh477d4k4s+^l!c+ku=xp6j^qpxl04_xw#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 
@@ -118,10 +118,13 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Vite (React)
     "http://127.0.0.1:3000",
     "https://www.neoproyect.com",
+
 ]
 ALLOWED_HOSTS = ['www.neoproyect.com',
-                 'neoproyect.com', 
-                 '72.60.154.196']
+            'neoproyect.com', 
+            '72.60.154.196',
+            '127.0.0.1',         # ✅ para desarrollo local
+            'localhost',          ]
 
 
 
