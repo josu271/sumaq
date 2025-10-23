@@ -1,11 +1,13 @@
 from django.contrib import admin
 from django.urls import path, include
-from predicciones.views import login_artesano, prueba_conexion
+from predicciones.views import login_artesano, obtener_predicciones, prueba_conexion
 from productos.views import listar_productos, crear_producto, editar_producto, productos_por_artesano
 from ventas.views import ventas_por_artesano
 from eventos.views import eventos_por_artesano
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from predicciones import views
+
 
 
 
@@ -22,5 +24,11 @@ urlpatterns = [
     path('ventas/<int:id_artesano>/', ventas_por_artesano),
     path('eventos/<int:id_artesano>/', eventos_por_artesano),
     path('api/artesanos/', include('artesanos.urls')),
-    
+    path("train/", views.train_model_view, name="predicciones-train"),
+    path("predict/", views.predict_view, name="predicciones-predict"),
+    path("trends/", views.trends_view, name="predicciones-trends"),
+        path('api/predicciones/', obtener_predicciones, name='obtener_predicciones'),
+        path("api/predicciones/train/", views.train_model_view, name="predicciones-train"),
+        path("api/predicciones/predict/", views.predict_view, name="predicciones-predict"),
+        path("api/predicciones/trends/", views.trends_view, name="predicciones-trends"),
 ]
