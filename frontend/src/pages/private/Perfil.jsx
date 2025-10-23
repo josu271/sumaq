@@ -27,7 +27,7 @@ const Perfil = () => {
   const handleSave = async () => {
     try {
       const response = await fetch(
-        `https://www.neoproyect.com/api/artesanos/${artesano.idArtesano}/`,
+        `http://127.0.0.1:8000/api/artesanos/${artesano.idArtesano}/`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

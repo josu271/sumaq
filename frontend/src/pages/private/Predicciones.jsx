@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../assets/styles/pages/private/Predicciones.scss";
 
-const API_BASE = "https://www.neoproyect.com/api/predicciones";
+const API_BASE = "http://127.0.0.1:8000/api/predicciones";
 
 export default function Predicciones() {
   const [predictions, setPredictions] = useState([]);

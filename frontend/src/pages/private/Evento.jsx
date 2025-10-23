@@ -13,7 +13,7 @@ export default function Evento() {
   });
   const [editando, setEditando] = useState(false);
 
-  const API_URL = "https://www.neoproyect.com/api/eventos/";
+  const API_URL = "http://127.0.0.1:8000/api/eventos/";
 
   const obtenerEventos = async () => {
     const res = await axios.get(API_URL);
